@@ -78,45 +78,65 @@ module.exports = {
 
       interaction.reply({ embeds: [serverEmbed] });
     } else if (interaction.options.getSubcommand() === 'user') {
-      const targetUser = interaction.options.getMember('target');
+      const targetMember = interaction.options.getMember('target');
+      const targetUser = interaction.options.getUser('target');
 
-      const roles = targetUser.roles.cache
-        .filter((role) => role.name !== '@everyone')
-        .sort((roleA, roleB) => roleB.position - roleA.position);
+      if (targetUser && !targetMember) {
+        const userEmbed = buildDefaultEmbed(interaction.user)
+          .setTitle('User Info')
+          .setThumbnail(targetUser.displayAvatarURL())
+          .addFields([
+            { name: 'Username', value: targetUser.tag },
+            { name: 'User ID', value: targetUser.id },
+            {
+              name: 'Joined Discord on',
+              value: `${time(targetUser.createdAt, 'D')}\n(${time(
+                targetUser.createdAt,
+                'R'
+              )})`,
+            },
+          ]);
 
-      const userEmbed = new EmbedBuilder({
-        color: targetUser.roles.color?.color,
-        title: 'User Info',
-        thumbnail: { url: targetUser.user.displayAvatarURL() },
-        fields: [
-          { name: 'Username', value: targetUser.user.tag },
-          { name: 'User ID', value: targetUser.user.id },
-          {
-            name: 'Joined Discord on',
-            value: `${time(targetUser.user.createdAt, 'D')}\n(${time(
-              targetUser.user.createdAt,
-              'R'
-            )})`,
-            inline: true,
+        interaction.reply({ embeds: [userEmbed] });
+      } else {
+        const roles = targetMember.roles.cache
+          .filter((role) => role.name !== '@everyone')
+          .sort((roleA, roleB) => roleB.position - roleA.position);
+
+        const memberEmbed = new EmbedBuilder({
+          color: targetMember.roles.color?.color,
+          title: 'User Info',
+          thumbnail: { url: targetMember.user.displayAvatarURL() },
+          fields: [
+            { name: 'Username', value: targetMember.user.tag },
+            { name: 'User ID', value: targetMember.user.id },
+            {
+              name: 'Joined Discord on',
+              value: `${time(targetMember.user.createdAt, 'D')}\n(${time(
+                targetMember.user.createdAt,
+                'R'
+              )})`,
+              inline: true,
+            },
+            {
+              name: 'Joined this server on',
+              value: `${time(targetMember.joinedAt, 'D')}\n(${time(
+                targetMember.joinedAt,
+                'R'
+              )})`,
+              inline: true,
+            },
+            { name: 'Roles', value: roles.toJSON().join(', ') || 'None' },
+          ],
+          footer: {
+            text: `Requested by ${interaction.user.username}.`,
+            iconURL: interaction.user.displayAvatarURL(),
           },
-          {
-            name: 'Joined this server on',
-            value: `${time(targetUser.joinedAt, 'D')}\n(${time(
-              targetUser.joinedAt,
-              'R'
-            )})`,
-            inline: true,
-          },
-          { name: 'Roles', value: roles.toJSON().join(', ') || 'None' },
-        ],
-        footer: {
-          text: `Requested by ${interaction.user.username}.`,
-          iconURL: interaction.user.displayAvatarURL(),
-        },
-        timestamp: Date.now(),
-      });
+          timestamp: Date.now(),
+        });
 
-      interaction.reply({ embeds: [userEmbed] });
+        interaction.reply({ embeds: [memberEmbed] });
+      }
     } else if (interaction.options.getSubcommand() === 'members') {
       await interaction.deferReply();
       await interaction.guild.members.fetch();
@@ -178,8 +198,8 @@ module.exports = {
 
       interaction.editReply({ embeds: [adminEmbed] });
     } else if (interaction.options.getSubcommand() === 'avatar') {
-      const targetUser = interaction.options.getMember('target');
-      interaction.reply(targetUser.user.displayAvatarURL({ size: 4096 }));
+      const targetMember = interaction.options.getMember('target');
+      interaction.reply(targetMember.user.displayAvatarURL({ size: 4096 }));
     }
   },
 };
