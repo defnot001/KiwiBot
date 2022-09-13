@@ -18,7 +18,7 @@ module.exports = {
       botLogChannel.send(
         `${inlineCode(member.user.tag)} (<@${
           member.user.id
-        }>) left the guild, most likely of their own will.`
+        }>) left the guild, audit log fetch was inconclusive.`
       );
       return;
     }
@@ -37,7 +37,7 @@ module.exports = {
       botLogChannel.send(
         `${inlineCode(member.user.tag)} (<@${
           member.user.id
-        }>) left the guild, audit log fetch was inconclusive.`
+        }>) left the guild, most likely of their own will.`
       );
     }
   },
