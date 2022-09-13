@@ -1,5 +1,6 @@
 const util = require('minecraft-server-util');
 const { EmbedBuilder } = require('discord.js');
+const { stringify } = require('querystring');
 const { guild, embedColor } = require('../config.json');
 
 exports.isAdmin = (member) => member.roles.cache.has(guild.roleIds.admin);
@@ -64,3 +65,7 @@ exports.runRconCommand = async (host, rconPort, rconPassword, command) => {
   await rcon.close();
   return data;
 };
+
+// parses the servers response using the command 'script run get_mob_counts('monster')'
+exports.parseMobcap = (str) =>
+  str.replace(/^.{0,3}| \(.*\)|[[\]]/g, '').replace(/, /g, ' / ');
