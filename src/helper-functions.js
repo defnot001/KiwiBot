@@ -1,14 +1,11 @@
 const util = require('minecraft-server-util');
 const { EmbedBuilder } = require('discord.js');
-const { stringify } = require('querystring');
 const { guild, embedColor } = require('../config.json');
 
 exports.isAdmin = (member) => member.roles.cache.has(guild.roleIds.admin);
 
 exports.getServerStatus = (host, port) =>
   util.queryFull(host, port, { enableSRV: true });
-
-exports.toColumn = (arr) => arr.join('\n');
 
 exports.escapeMarkdown = (text) => {
   const unescaped = text.replace(/\\(\*|_|`|~|\\)/g, '$1');
@@ -68,4 +65,17 @@ exports.runRconCommand = async (host, rconPort, rconPassword, command) => {
 
 // parses the servers response using the command 'script run get_mob_counts('monster')'
 exports.parseMobcap = (str) =>
-  str.replace(/^.{0,3}| \(.*\)|[[\]]/g, '').replace(/, /g, ' / ');
+  str.replace(/^.{0,3}| \(.*\)|[[\]]/g, '').replace(/, /g, ' | ');
+
+exports.queryMobcap = async (host, rconPort, rconPassword) => {
+  const dimensions = ['overworld', 'the_nether', 'the_end'];
+  const mobcap = {};
+
+  for (const dim of dimensions) {
+    const query = `execute in minecraft:${dim} run script run get_mob_counts('monster')`;
+    const data = await this.runRconCommand(host, rconPort, rconPassword, query);
+    mobcap[dim] = this.parseMobcap(data);
+  }
+
+  return mobcap;
+};

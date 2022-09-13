@@ -2,8 +2,8 @@ const { SlashCommandBuilder } = require('discord.js');
 const {
   getServerStatus,
   buildDefaultEmbed,
-  toColumn,
   queryMSPT,
+  queryMobcap,
 } = require('../helper-functions');
 const { server } = require('../../config.json');
 
@@ -32,10 +32,11 @@ module.exports = {
 
     try {
       const result = await getServerStatus(ip, port);
-      const { mspt, tps } = await queryMSPT(ip, rconPort, rconPassword);
-
       const playerlist =
-        toColumn(result.players.list) || 'There is currently nobody online!';
+        result.players.list.join('\n') || 'There is currently nobody online!';
+
+      const { mspt, tps } = await queryMSPT(ip, rconPort, rconPassword);
+      const mobcap = await queryMobcap(ip, rconPort, rconPassword);
 
       const statusEmbed = buildDefaultEmbed(interaction.user)
         .setTitle(`KiwiTech ${choice.toUpperCase()}`)
@@ -44,6 +45,10 @@ module.exports = {
           { name: 'Status', value: 'Online' },
           { name: 'Version', value: result.version },
           { name: 'Performance', value: `**${mspt}** mspt | **${tps}** TPS` },
+          {
+            name: 'Hostile Mobcaps',
+            value: `Overworld: ${mobcap.overworld}\n The Nether: ${mobcap.the_nether}\n The End: ${mobcap.the_end}`,
+          },
           {
             name: 'Playercount',
             value: `online: **${result.players.online}** | max: **${result.players.max}**`,
