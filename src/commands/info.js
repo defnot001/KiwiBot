@@ -1,6 +1,9 @@
 const { SlashCommandBuilder, EmbedBuilder, time } = require('discord.js');
 const { guild } = require('../../config.json');
-const { buildDefaultEmbed, escapeMarkdown } = require('../helper-functions');
+const {
+  buildDefaultEmbed,
+  escapeMarkdown,
+} = require('../util/helper-functions');
 
 module.exports = {
   data: new SlashCommandBuilder()
