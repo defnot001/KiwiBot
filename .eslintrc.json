@@ -1,6 +1,15 @@
 {
-  "extends": ["wesbos"],
+  "env": {
+    "node": true,
+    "es2021": true
+  },
+  "extends": ["airbnb-base", "prettier"],
   "rules": {
-    "import/no-dynamic-require": "off"
+    "linebreak-style": ["error", "unix"],
+    "no-restricted-syntax": ["off"],
+    "global-require": ["off"],
+    "import/no-dynamic-require": ["off"],
+    "no-console": ["off"],
+    "no-await-in-loop": ["off"]
   }
 }
