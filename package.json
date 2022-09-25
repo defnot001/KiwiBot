@@ -1,0 +1,36 @@
+{
+  "name": "kiwitype",
+  "version": "1.0.0",
+  "description": "Typescript rewrite of KiwiBot",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/defnot001/KiwiBot.git"
+  },
+  "author": "defnot",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/defnot001/KiwiBot/issues"
+  },
+  "homepage": "https://github.com/defnot001/KiwiBot#readme",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.38.0",
+    "concurrently": "^7.4.0",
+    "eslint": "^8.24.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-standard-with-typescript": "^23.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.3.0",
+    "eslint-plugin-promise": "^6.0.1",
+    "nodemon": "^2.0.20",
+    "prettier": "^2.7.1",
+    "typescript": "^4.8.3"
+  },
+  "dependencies": {
+    "discord.js": "^14.5.0",
+    "dotenv": "^16.0.2"
+  }
+}
