@@ -1,0 +1,6 @@
+
+{
+    "eslint.probe": ["javascript", "javascriptreact", "vue"],
+    "editor.formatOnSave": false,
+    "editor.codeActionsOnSave": ["source.formatDocument", "source.fixAll.eslint"]
+  }
