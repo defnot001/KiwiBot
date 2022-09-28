@@ -24,6 +24,8 @@
   },
   "homepage": "https://github.com/defnot001/KiwiType#readme",
   "devDependencies": {
+    "@types/glob": "^8.0.0",
+    "@types/node": "^18.7.23",
     "@typescript-eslint/eslint-plugin": "^5.38.0",
     "concurrently": "^7.4.0",
     "eslint": "^8.24.0",
