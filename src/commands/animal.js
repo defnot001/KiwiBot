@@ -11,9 +11,9 @@ module.exports = {
         .setDescription('Select an animal.')
         .setRequired(true)
         .addChoices(
-          { name: 'Fox', value: 'fox', emoji: '🦊' },
-          { name: 'Cat', value: 'cat', emoji: '🐈' },
-          { name: 'Dog', value: 'dog', emoji: '🐕' }
+          { name: 'Fox', value: 'fox' },
+          { name: 'Cat', value: 'cat' },
+          { name: 'Dog', value: 'dog' }
         )
     ),
   async execute(interaction) {
