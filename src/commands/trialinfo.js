@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder, userMention } = require('discord.js');
 const { guild } = require('../../config.json');
 const { buildDefaultEmbed } = require('../util/helper-functions');
 
@@ -45,7 +45,7 @@ module.exports = {
       ]);
 
     await interaction.reply({
-      content: `<@${target.user.id}>`,
+      content: userMention(target.user.id),
       embeds: [trialEmbed],
     });
 
