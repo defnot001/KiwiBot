@@ -1,10 +1,12 @@
-const { ActivityType } = require('discord.js');
+import { ActivityType } from 'discord.js';
 
-module.exports = {
+export const event = {
   name: 'ready',
   once: true,
   execute(client) {
-    client.user.setActivity('Commands', { type: ActivityType.Listening });
+    client.user.setActivity('Minecraft Servers', {
+      type: ActivityType.Watching,
+    });
     console.log(`Ready! Logged in as ${client.user.tag}.`);
   },
 };

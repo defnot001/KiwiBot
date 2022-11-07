@@ -1,4 +1,4 @@
-module.exports = {
+export const event = {
   name: 'interactionCreate',
   async execute(interaction) {
     if (!interaction.isChatInputCommand()) return;
@@ -8,7 +8,7 @@ module.exports = {
     if (!command) return;
 
     try {
-      await command.execute(interaction);
+      await command.command.execute(interaction);
     } catch (error) {
       console.error(error);
       await interaction.reply({
@@ -17,7 +17,7 @@ module.exports = {
       });
     }
     console.log(
-      `${interaction.user.tag} in #${interaction.channel.name} triggered an interaction.`
+      `${interaction.user.tag} in #${interaction.channel.name} triggered an interaction.`,
     );
   },
 };

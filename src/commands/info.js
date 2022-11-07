@@ -1,13 +1,9 @@
-const {
-  SlashCommandBuilder,
-  EmbedBuilder,
-  time,
-  escapeMarkdown,
-} = require('discord.js');
-const { guild } = require('../../config.json');
-const { buildDefaultEmbed } = require('../util/helper-functions');
+import { SlashCommandBuilder, EmbedBuilder, escapeMarkdown, time } from 'discord.js';
+import buildDefaultEmbed from '../util/discord/defaultEmbed.js';
+import guildconfig from '../config/guildConfig.js';
 
-module.exports = {
+
+export const command = {
   data: new SlashCommandBuilder()
     .setName('info')
     .setDescription('Get information about our server.')
@@ -52,7 +48,7 @@ module.exports = {
   async execute(interaction) {
     if (interaction.options.getSubcommand() === 'server') {
       const inviteLink = await interaction.guild.invites.create(
-        guild.channelIds.general,
+        guildconfig.inviteChannelId,
         {
           maxAge: 0,
           maxUses: 0,
@@ -147,14 +143,14 @@ module.exports = {
       await interaction.guild.members.fetch();
 
       const minecraftMembers = interaction.guild.roles.cache
-        .get(guild.roleIds.member)
+        .get(guildconfig.memberRoleId)
         .members.map((m) => m.user.username)
         .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()))
         .map(escapeMarkdown)
         .join('\n');
 
       const minecraftMemberCount = interaction.guild.roles.cache
-        .get(guild.roleIds.member)
+        .get(guildconfig.memberRoleId)
         .members.map((m) => m.user.username).length;
 
       const memberEmbed = buildDefaultEmbed(interaction.user)
@@ -177,14 +173,14 @@ module.exports = {
       await interaction.guild.members.fetch();
 
       const admins = interaction.guild.roles.cache
-        .get(guild.roleIds.admin)
+        .get(guildconfig.adminRoleId)
         .members.map((m) => m.user.username)
         .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()))
         .map(escapeMarkdown)
         .join('\n');
 
       const adminCount = interaction.guild.roles.cache
-        .get(guild.roleIds.admin)
+        .get(guildconfig.adminRoleId)
         .members.map((m) => m.user.username).length;
 
       const adminEmbed = buildDefaultEmbed(interaction.user)

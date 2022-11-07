@@ -1,7 +1,6 @@
-const { SlashCommandBuilder } = require('discord.js');
-const { fetchAnimal } = require('../util/helper-functions');
+import { SlashCommandBuilder } from 'discord.js';
 
-module.exports = {
+export const command = {
   data: new SlashCommandBuilder()
     .setName('animal')
     .setDescription('Get Random Pictures from Animals.')
@@ -13,30 +12,35 @@ module.exports = {
         .addChoices(
           { name: 'Fox', value: 'fox' },
           { name: 'Cat', value: 'cat' },
-          { name: 'Dog', value: 'dog' }
-        )
+          { name: 'Dog', value: 'dog' },
+        ),
     ),
   async execute(interaction) {
+    await interaction.deferReply();
+
     const animal = interaction.options.getString('animal');
     if (animal === 'fox') {
-      const data = await fetchAnimal('https://randomfox.ca/floof/');
-      interaction.reply(data.image);
+      const response = await fetch('https://randomfox.ca/floof/');
+      const data = await response.json();
+      interaction.editReply(data.image);
       return;
     }
 
     if (animal === 'cat') {
-      const data = await fetchAnimal(
-        'https://api.thecatapi.com/v1/images/search'
+      const response = await fetch(
+        'https://api.thecatapi.com/v1/images/search',
       );
-      interaction.reply(data[0].url);
+      const data = await response.json();
+      interaction.editReply(data[0].url);
       return;
     }
 
     if (animal === 'dog') {
-      const data = await fetchAnimal(
-        'https://api.thedogapi.com/v1/images/search'
+      const response = await fetch(
+        'https://api.thedogapi.com/v1/images/search',
       );
-      interaction.reply(data[0].url);
+      const data = await response.json();
+      interaction.editReply(data[0].url);
     }
   },
 };
