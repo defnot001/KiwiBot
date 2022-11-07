@@ -1,48 +1,49 @@
-const { AuditLogEvent, inlineCode } = require('discord.js');
-const { guild } = require('../../config.json');
+import { AuditLogEvent } from 'discord.js';
+import logChannels from '../util/discord/loggers.js';
+import moderationAction from '../util/discord/moderationAction.js';
+import buildModerationEmbed from '../util/discord/moderationEmbed.js';
 
-module.exports = {
+export const event = {
   name: 'guildBanAdd',
-  async execute(ban) {
-    const fetchedLogs = await ban.guild.fetchAuditLogs({
+  async execute(banObject) {
+    const fetchedLogs = await banObject.guild.fetchAuditLogs({
       limit: 1,
       type: AuditLogEvent.MemberBanAdd,
     });
 
-    const botLogChannel = ban.guild.channels.cache.get(
-      guild.channelIds.botLogs
-    );
     const banLog = fetchedLogs.entries.first();
-
-    if (!banLog) {
-      botLogChannel.send(
-        `${inlineCode(ban.user.tag)} (<@${ban.user.id}>) was banned from ${
-          ban.guild.name
-        } but no audit log could be found.`
-      );
-      return;
-    }
+    if (!banLog) return console.log({ banLog: banLog });
 
     const { executor, target } = banLog;
+    const reason = banLog.reason || 'No reason provided';
 
-    if (target.id === ban.user.id) {
-      botLogChannel.send(
-        `${inlineCode(ban.user.tag)} (<@${
-          ban.user.id
-        }>) got hit with the swift hammer of justice in the guild ${inlineCode(
-          ban.guild.name
-        )}, wielded by the mighty ${inlineCode(executor.tag)} (<@${
-          executor.id
-        }>)!`
+    console.log({
+      executor: executor,
+      target: target,
+      reason: reason,
+    });
+
+    const executingMember = await banObject.guild.members.fetch(executor.id);
+    const bannedMember = await banObject.guild.members.fetch(target.id);
+
+    const { modLog } = logChannels(banObject.guild);
+    console.log({
+      targetId: target.id,
+      banObjectUserID: banObject.user.id,
+    });
+
+    if (target.id === banObject.user.id) {
+      console.log(
+        `${bannedMember.user.tag} was banned from ${banObject.guild.name}.`,
       );
-    } else {
-      botLogChannel.send(
-        `${inlineCode(ban.user.tag)} (<@${
-          ban.user.id
-        }>) got hit with the swift hammer of justice in the guild ${inlineCode(
-          ban.guild.name
-        )}, audit log fetch was inconclusive.`
+      const banEmbed = buildModerationEmbed(
+        bannedMember,
+        moderationAction.ban,
+        reason,
+        executingMember,
       );
+
+      // modLog.send({ embeds: [banEmbed] });
     }
   },
 };
