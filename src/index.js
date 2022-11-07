@@ -1,8 +1,8 @@
 import fs from 'fs';
 import path from 'path';
+import botEnv from './config/environment.js';
 import { fileURLToPath } from 'url';
 import { Client, Collection, GatewayIntentBits, Partials } from 'discord.js';
-import { botEnv } from './config/environment.js';
 
 const client = new Client({
   intents: [

@@ -21,3 +21,5 @@ const undefinedEnv = errors.join('\n');
 if (errors.length > 0) {
   throw new Error(undefinedEnv);
 }
+
+export default botEnv;

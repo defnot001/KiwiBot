@@ -1,9 +1,9 @@
 import fs from 'fs';
 import path from 'path';
+import sourcePath from './node/sourcesPath.js';
+import botEnv from '../config/environment.js';
 import { REST } from '@discordjs/rest';
 import { Routes } from 'discord.js';
-import sourcePath from './node/sourcesPath.js';
-import { botEnv } from '../config/environment.js';
 
 const commands = [];
 const commandsPath = path.join(sourcePath, 'commands');
