@@ -1,3 +1,9 @@
+// fill in all your channel and role IDs. They must be strings which is why the '' - Symbols have been kept. You can also change the colors, if you want.
+// Make sure to uncomment the whole file.
+
+/*
+import type IGuildConfig from '@/util/interfaces/IGuildConfig';
+
 const guildConfig = {
   channels: {
     invite: '',
@@ -26,3 +32,5 @@ const guildConfig = {
 };
 
 export default guildConfig;
+
+*/
