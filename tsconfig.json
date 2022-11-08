@@ -1,5 +1,8 @@
 {
-  "exclude": ["node_modules", "**/*.template.ts"],
+  "include": ["src/**/*"],
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  },
   "compilerOptions": {
     "strict": true,
     "alwaysStrict": true,

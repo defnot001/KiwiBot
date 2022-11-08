@@ -19,6 +19,7 @@
   "homepage": "https://github.com/defnot001/KiwiType#readme",
   "devDependencies": {
     "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.1.0",
     "typescript": "^4.8.4"
   },
   "dependencies": {
