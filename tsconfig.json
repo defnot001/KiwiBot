@@ -1,4 +1,5 @@
 {
+  "exclude": ["node_modules", "**/*.template.ts"],
   "compilerOptions": {
     "strict": true,
     "alwaysStrict": true,

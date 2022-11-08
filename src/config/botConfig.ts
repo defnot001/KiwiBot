@@ -1,28 +1,24 @@
-import path from 'path';
 import dotenv from 'dotenv';
-import { ENV } from '../util/interfaces/ENV';
-import { Config } from '../util/interfaces/Config';
+import type IENV from '@interfaces/ENV';
+import type IBotConfig from '@interfaces/BotConfig';
 
-dotenv.config({ path: path.resolve(__dirname, './bot.env') });
+dotenv.config();
 
-const getConfig = (): ENV => {
-  return {
-    BOT_TOKEN: process.env.BOT_TOKEN,
-    CLIENT_ID: process.env.CLIENT_ID,
-    GUILD_ID: process.env.GUILD_ID,
-  };
+const env: IENV = {
+  token: process.env.BOT_TOKEN,
+  clientID: process.env.CLIENT_ID,
+  guildID: process.env.GUILD_ID,
 };
 
-const getCleanConfig = (botConfig: ENV) => {
-  for (const [key, value] of Object.entries(botConfig)) {
-    if (value === undefined) {
-      throw new Error(`Missing key ${key} in bot.env`);
+const checkConfig = (config: IENV) => {
+  for (const [key, value] of Object.values(env)) {
+    if (!value) {
+      throw new Error(`Missing key ${key} in .env`);
     }
   }
-  return botConfig as Config;
+  return config as IBotConfig;
 };
 
-const botConfig = getConfig();
-const cleanConfig = getCleanConfig(botConfig);
+const botConfig = checkConfig(env);
 
-export default cleanConfig;
+export default botConfig;
