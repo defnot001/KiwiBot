@@ -24,18 +24,6 @@
     "removeComments": true,
     "incremental": true,
     "noImplicitOverride": true,
-    "importsNotUsedAsValues": "error",
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"],
-      "@commands/*": ["src/commands/*"],
-      "@config/*": ["src/config/*"],
-      "@events/*": ["src/events/*"],
-      "@structures/*": ["src/structures/*"],
-      "@util/*": ["src/util/*"],
-      "@functions/*": ["src/util/functions/*"],
-      "@interfaces/*": ["src/util/interfaces/*"],
-      "@types/*": ["src/util/types/*"]
-    }
+    "importsNotUsedAsValues": "error"
   }
 }
