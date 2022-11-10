@@ -1,13 +1,7 @@
 import { ActivityType } from 'discord.js';
-import type { Client } from 'discord.js';
+import { Event } from '../structures/Event';
 
-export default (client: Client): void => {
-  client.once('ready', async () => {
-    if (!client.user || !client.application) return;
-
-    client.user.setActivity('Commands', {
-      type: ActivityType.Listening,
-    });
-    console.log(`Ready! Logged in as ${client.user.tag}.`);
-  });
-};
+export default new Event('ready', (client) => {
+  client.user.setActivity('Commands', { type: ActivityType.Listening });
+  console.log(`Bot is ready! Logged in as ${client.user.tag}`);
+});
