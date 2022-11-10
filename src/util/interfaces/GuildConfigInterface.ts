@@ -1,4 +1,4 @@
-interface IGuildConfig {
+interface GuildConfigInterface {
   channels: {
     invite: string;
     resources: string;
@@ -25,4 +25,4 @@ interface IGuildConfig {
   };
 }
 
-export default IGuildConfig;
+export default GuildConfigInterface;

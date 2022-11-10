@@ -14,9 +14,9 @@ interface RunOptions {
 
 type RunFunctions = (options: RunOptions) => any;
 
-type TCommand = {
+type CommandType = {
   userPermissions?: PermissionResolvable;
   run: RunFunctions;
 } & ChatInputApplicationCommandData;
 
-export default TCommand;
+export default CommandType;

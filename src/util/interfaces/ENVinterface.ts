@@ -1,7 +1,7 @@
-interface IENV {
+interface ENVInterface {
   token: string | undefined;
   clientID: string | undefined;
   guildID: string | undefined;
 }
 
-export default IENV;
+export default ENVInterface;
