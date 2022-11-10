@@ -1,16 +1,5 @@
-import { Client, GatewayIntentBits, Partials } from 'discord.js';
-import botConfig from '@config/botConfig';
-import ready from '@events/ready';
+import { KiwiClient } from './structures/KiwiClient';
 
-const client = new Client({
-  intents: [
-    GatewayIntentBits.Guilds,
-    GatewayIntentBits.GuildMembers,
-    GatewayIntentBits.GuildBans,
-  ],
-  partials: [Partials.GuildMember],
-});
+export const client = new KiwiClient();
 
-ready(client);
-
-client.login(botConfig.token);
+client.start();
