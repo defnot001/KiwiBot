@@ -1,22 +1,22 @@
-import type { KiwiClient } from '@/structures/Client';
+import type { KiwiClient } from '../../structures/KiwiClient';
 import type {
   ChatInputApplicationCommandData,
-  CommandInteraction,
   CommandInteractionOptionResolver,
   PermissionResolvable,
 } from 'discord.js';
+import type ExtendedInteraction from '../interfaces/ExtendedInteractionInterface';
 
 interface RunOptions {
   client: KiwiClient;
-  interaction: CommandInteraction;
+  interaction: ExtendedInteraction;
   args: CommandInteractionOptionResolver;
 }
 
-type RunFunctions = (options: RunOptions) => any;
+type ExecuteFunctions = (options: RunOptions) => any;
 
 type CommandType = {
   userPermissions?: PermissionResolvable;
-  run: RunFunctions;
+  execute: ExecuteFunctions;
 } & ChatInputApplicationCommandData;
 
 export default CommandType;
