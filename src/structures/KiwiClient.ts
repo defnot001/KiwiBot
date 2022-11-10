@@ -12,7 +12,7 @@ import botConfig from '../config/botConfig';
 import projectPaths from '../util/node/projectPaths';
 import type { Event } from './Event';
 import type CommandType from '../util/types/CommandType';
-import type RegisterCommandOptionsInterface from '../util/interfaces/ClientInterface';
+import type RegisterCommandOptionsInterface from '../util/interfaces/RegisterCommandOptionsInterface';
 
 const globPromise = promisify(glob);
 
