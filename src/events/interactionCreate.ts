@@ -40,5 +40,8 @@ export default new Event('interactionCreate', async (interaction) => {
 
   const channelNameAddon: string =
     `in #${getChannelName(interaction.channel)}` || '';
-  const logMessage = `${interaction.user.tag} ${channelNameAddon} triggered an interaction.`;
+
+  console.log(
+    `${interaction.user.tag} ${channelNameAddon} triggered an interaction.`,
+  );
 });
