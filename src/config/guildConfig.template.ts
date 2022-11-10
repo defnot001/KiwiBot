@@ -2,9 +2,9 @@
 // Make sure to uncomment the whole file.
 
 /*
-import type IGuildConfig from '@/util/interfaces/IGuildConfig';
+import type GuildConfigInterface from '../util/interfaces/GuildConfigInterface';
 
-const guildConfig = {
+const guildConfig: GuildConfigInterface = {
   channels: {
     invite: '',
     resources: '',
