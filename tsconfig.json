@@ -1,0 +1,29 @@
+{
+  "include": ["src", "environment.d.ts"],
+  "exclude": ["node_modules", "**/*.template.ts"],
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  },
+  "compilerOptions": {
+    "lib": ["ESNext"],
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "target": "ESNext",
+    "outDir": "dist",
+    "sourceMap": false,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "resolveJsonModule": true,
+    "importHelpers": true,
+    "strict": true,
+    "alwaysStrict": true,
+    "removeComments": true,
+    "incremental": true,
+    "noImplicitOverride": true,
+    "importsNotUsedAsValues": "error"
+  }
+}

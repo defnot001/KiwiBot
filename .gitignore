@@ -1,4 +1,4 @@
 node_modules
 .env
-guildConfig.js
-.DS_Store
+dist
+guildConfig.ts
