@@ -16,13 +16,6 @@ interface GuildConfigInterface {
     owoKiwi: string;
     froghypers: string;
   };
-  embedColor: {
-    defaut: number;
-    none: number;
-    green: number;
-    yellow: number;
-    error: number;
-  };
 }
 
 export default GuildConfigInterface;
