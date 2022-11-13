@@ -2,6 +2,8 @@ import {
   ApplicationCommandOptionType,
   Collection,
   EmbedField,
+  escapeMarkdown,
+  GuildMember,
   Role,
   Snowflake,
   time,
@@ -58,6 +60,7 @@ export default new Command({
     },
   ],
   execute: async ({ interaction, args }) => {
+    await interaction.deferReply();
     const subcommand = args.getSubcommand();
 
     // this check is most likely not necessary, but it helps to make sure the command doesn't break and satisfies TS.
@@ -107,7 +110,7 @@ export default new Command({
         ],
       });
 
-      return interaction.reply({ embeds: [serverEmbed] });
+      return interaction.editReply({ embeds: [serverEmbed] });
     } else if (subcommand === 'user') {
       const targetMember = args.getMember('target');
       const targetUser = args.getUser('target');
@@ -166,7 +169,50 @@ export default new Command({
         userEmbed.setFields([...userFields, ...memberFields]);
       }
 
-      return interaction.reply({ embeds: [userEmbed] });
+      return interaction.editReply({ embeds: [userEmbed] });
+    } else if (subcommand === 'members' || subcommand === 'admins') {
+      const allMembers: Collection<Snowflake, GuildMember> =
+        await interaction.guild.members.fetch();
+
+      const targetMembers: GuildMember[] = [];
+
+      for (const memberTuple of allMembers) {
+        const member: GuildMember = memberTuple[1];
+
+        if (member.roles.cache.has(guildConfig.roles[subcommand])) {
+          targetMembers.push(member);
+        }
+      }
+
+      const sortedMemberNamesString: string = escapeMarkdown(
+        targetMembers
+          .map((m) => m.user.username)
+          .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()))
+          .join('\n'),
+      );
+
+      const roleEmbed = new KiwiEmbedBuilder(interaction.user, {
+        title: `Info ${subcommand}`, // todo: capitalize first letter here
+        thumbnail: {
+          url: guildIconURL,
+        },
+        fields: [
+          {
+            name: `Count ${subcommand}`,
+            value: `${targetMembers.length}`,
+          },
+          {
+            name: `List ${subcommand}`,
+            value: sortedMemberNamesString,
+          },
+        ],
+      });
+
+      return interaction.editReply({ embeds: [roleEmbed] });
+    } else if (subcommand === 'avatar') {
+      // do something
+    } else {
+      await interaction.editReply('Cannot process the subcommand you chose!');
     }
   },
 });
