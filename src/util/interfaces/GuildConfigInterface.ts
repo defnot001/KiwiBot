@@ -8,8 +8,8 @@ interface GuildConfigInterface {
     modLog: string;
   };
   roles: {
-    member: string;
-    admin: string;
+    members: string;
+    admins: string;
   };
   emojis: {
     kiwi: string;

@@ -14,8 +14,8 @@ const guildConfig: GuildConfigInterface = {
     modLog: '',
   },
   roles: {
-    member: '',
-    admin: '',
+    members: '',
+    admins: '',
   },
   emojis: {
     kiwi: '',
