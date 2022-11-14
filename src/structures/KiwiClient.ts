@@ -45,10 +45,23 @@ export class KiwiClient extends Client {
   }: RegisterCommandOptionsInterface) {
     if (guildID) {
       const guild = this.guilds.cache.get(guildID);
-      guild?.commands.set(commands);
+
+      if (!guild) {
+        throw new Error(`Cannot find the guild to register the commands to!`);
+      }
+
+      guild.commands.set(commands);
+
       console.log(`Registering commands to ${guild?.name}...`);
     } else {
-      this.application?.commands.set(commands);
+      if (!this.application) {
+        throw new Error(
+          `Cannot find the application to register the commands to!`,
+        );
+      }
+
+      this.application.commands.set(commands);
+
       console.log('Registering global commands');
     }
   }
