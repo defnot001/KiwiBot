@@ -8,6 +8,8 @@ import {
   Role,
   Snowflake,
   time,
+  APIEmbed,
+  EmbedBuilder,
 } from 'discord.js';
 import guildConfig from '../../config/guildConfig';
 import { Command } from '../../structures/Command';
@@ -63,14 +65,14 @@ export default new Command({
   ],
   execute: async ({ interaction, args }) => {
     await interaction.deferReply();
-    const subcommand = args.getSubcommand();
+    const subcommand: string = args.getSubcommand();
 
     // this check is most likely not necessary, but it helps to make sure the command doesn't break and satisfies TS.
     if (!interaction.inCachedGuild()) {
       return interaction.reply('This command can only be used in a guild.');
     }
 
-    const guildIconURL = interaction.guild.iconURL();
+    const guildIconURL: string | null = interaction.guild.iconURL();
 
     if (!guildIconURL)
       return interaction.reply(
@@ -138,7 +140,7 @@ export default new Command({
           url: targetUser.displayAvatarURL(),
         },
         fields: userFields,
-      });
+      }) as EmbedBuilder;
 
       if (isGuildMember(targetMember)) {
         const memberFields: EmbedField[] = [];
@@ -210,7 +212,7 @@ export default new Command({
             value: sortedMemberNamesString,
           },
         ],
-      });
+      }) as APIEmbed;
 
       return interaction.editReply({ embeds: [roleEmbed] });
     } else if (subcommand === 'avatar') {
@@ -220,9 +222,9 @@ export default new Command({
 
       const avatarURL: string = target.displayAvatarURL({ size: 4096 });
 
-      interaction.editReply({ files: [avatarURL] });
+      return interaction.editReply({ files: [avatarURL] });
     } else {
-      await interaction.editReply('Cannot process the subcommand you chose!');
+      interaction.editReply('Cannot process the subcommand you chose!');
     }
   },
 });
