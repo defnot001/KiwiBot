@@ -4,6 +4,7 @@ import {
   EmbedField,
   escapeMarkdown,
   GuildMember,
+  User,
   Role,
   Snowflake,
   time,
@@ -12,6 +13,7 @@ import guildConfig from '../../config/guildConfig';
 import { Command } from '../../structures/Command';
 import { KiwiEmbedBuilder } from '../../structures/KiwiEmbedBuilder';
 import { isGuildMember } from '../../util/functions/typeChecks';
+import { capitalizeFirstLetter } from '../../util/functions/helpers';
 
 export default new Command({
   name: 'info',
@@ -191,18 +193,20 @@ export default new Command({
           .join('\n'),
       );
 
+      const capitalizedSubcommand: string = capitalizeFirstLetter(subcommand);
+
       const roleEmbed = new KiwiEmbedBuilder(interaction.user, {
-        title: `Info ${subcommand}`, // todo: capitalize first letter here
+        title: `Info ${capitalizedSubcommand}`,
         thumbnail: {
           url: guildIconURL,
         },
         fields: [
           {
-            name: `Count ${subcommand}`,
+            name: `Count ${capitalizedSubcommand}`,
             value: `${targetMembers.length}`,
           },
           {
-            name: `List ${subcommand}`,
+            name: `List ${capitalizedSubcommand}`,
             value: sortedMemberNamesString,
           },
         ],
@@ -210,7 +214,13 @@ export default new Command({
 
       return interaction.editReply({ embeds: [roleEmbed] });
     } else if (subcommand === 'avatar') {
-      // do something
+      const target: User | null = args.getUser('target');
+
+      if (!target) return interaction.editReply('Cannot find that user!');
+
+      const avatarURL: string = target.displayAvatarURL({ size: 4096 });
+
+      interaction.editReply({ files: [avatarURL] });
     } else {
       await interaction.editReply('Cannot process the subcommand you chose!');
     }
