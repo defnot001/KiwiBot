@@ -6,13 +6,13 @@ import type {
 } from 'discord.js';
 import type ExtendedInteraction from '../interfaces/ExtendedInteractionInterface';
 
-interface RunOptions {
+interface ClientRunOptionsInterface {
   client: KiwiClient;
   interaction: ExtendedInteraction;
   args: CommandInteractionOptionResolver;
 }
 
-type ExecuteFunctions = (options: RunOptions) => any;
+type ExecuteFunctions = (options: ClientRunOptionsInterface) => any;
 
 type CommandType = {
   userPermissions?: PermissionResolvable;
