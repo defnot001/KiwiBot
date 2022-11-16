@@ -1,5 +1,5 @@
 import { GuildMember } from 'discord.js';
 
-export function isGuildMember(value: any): value is GuildMember {
+export function isGuildMember(value: unknown): value is GuildMember {
   return value instanceof GuildMember;
 }
