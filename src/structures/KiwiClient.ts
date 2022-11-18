@@ -95,7 +95,7 @@ export class KiwiClient extends Client {
 
     for await (const path of eventPaths) {
       const event: Event<keyof ClientEvents> = await this.importFile(path);
-      this.on(event.name, event.execute);
+      this.on(event.event, event.execute);
     }
   }
 }
