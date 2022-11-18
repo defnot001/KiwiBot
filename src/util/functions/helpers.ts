@@ -1,4 +1,8 @@
-export function capitalizeFirstLetter(str: string): string {
+import { time } from 'discord.js';
+import type { GuildMember } from 'discord.js';
+
+export function capitalizeFirstLetter(str: string): string | undefined {
+  if (str.length <= 1) return;
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
@@ -27,4 +31,13 @@ export function colorFromDuration(duration: number): number {
   blue += (255 - blue) * tintFactor;
 
   return (red << 16) + (green << 8) + blue;
+}
+
+export function getJoinedAtComponent(member: GuildMember): string {
+  return member.joinedAt
+    ? `\nJoined at: ${time(member.joinedAt, 'f')} (${time(
+        member.joinedAt,
+        'R',
+      )})`
+    : '\u200b';
 }
