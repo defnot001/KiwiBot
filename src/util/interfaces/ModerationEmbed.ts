@@ -5,8 +5,8 @@ export interface IModerationEmbedOptions {
   target: GuildMember;
   executor: GuildMember;
   action: ModerationAction;
-  reason?: string;
-  expiration?: number;
+  reason?: string | null;
+  expiration?: number | null;
 }
 
 export interface IModerationDescription {
