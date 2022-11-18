@@ -7,11 +7,8 @@ export function capitalizeFirstLetter(str: string): string | undefined {
 }
 
 export function colorFromDuration(duration: number): number {
-  const MAX_TRUST_ACCOUNT_AGE: number = 1_000 * 60 * 60 * 24 * 7 * 4;
-  const percent: number = Math.min(
-    duration / (MAX_TRUST_ACCOUNT_AGE / 100),
-    100,
-  );
+  const MAX_TRUST_ACCOUNT_AGE = 1_000 * 60 * 60 * 24 * 7 * 4;
+  const percent = Math.min(duration / (MAX_TRUST_ACCOUNT_AGE / 100), 100);
   let red;
   let green;
   let blue = 0;
@@ -24,13 +21,13 @@ export function colorFromDuration(duration: number): number {
     red = Math.round(510 - 5.1 * percent);
   }
 
-  const tintFactor: number = 0.3;
+  const tintFactor = 0.3;
 
   red += (255 - red) * tintFactor;
   green += (255 - green) * tintFactor;
   blue += (255 - blue) * tintFactor;
 
-  return (red << 16) + (green << 8) + blue;
+  return Math.floor((red << 16) + (green << 8) + blue);
 }
 
 export function getJoinedAtComponent(member: GuildMember): string {
