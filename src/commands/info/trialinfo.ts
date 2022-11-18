@@ -1,11 +1,7 @@
 import { Command } from '../../structures/Command';
-import {
-  APIEmbed,
-  ApplicationCommandOptionType,
-  userMention,
-} from 'discord.js';
+import { ApplicationCommandOptionType, userMention } from 'discord.js';
 import { isGuildMember } from '../../util/functions/typeChecks';
-import { KiwiEmbedBuilder } from '../../structures/KiwiEmbedBuilder';
+import { KiwiEmbedBuilder } from '../../structures/Embeds/KiwiEmbedBuilder';
 import trialWelcomeMessage from '../../data/trialWelcomeMessage';
 import guildConfig from '../../config/guildConfig';
 
@@ -36,7 +32,7 @@ export default new Command({
         url: target.user.displayAvatarURL(),
       },
       fields: trialWelcomeMessage,
-    }) as APIEmbed;
+    });
 
     await interaction.reply({
       content: userMention(target.user.id),

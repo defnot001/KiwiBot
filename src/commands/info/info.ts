@@ -8,12 +8,11 @@ import {
   Role,
   Snowflake,
   time,
-  APIEmbed,
   EmbedBuilder,
 } from 'discord.js';
 import guildConfig from '../../config/guildConfig';
 import { Command } from '../../structures/Command';
-import { KiwiEmbedBuilder } from '../../structures/KiwiEmbedBuilder';
+import { KiwiEmbedBuilder } from '../../structures/Embeds/KiwiEmbedBuilder';
 import { isGuildMember } from '../../util/functions/typeChecks';
 import { capitalizeFirstLetter } from '../../util/functions/helpers';
 
@@ -195,7 +194,9 @@ export default new Command({
           .join('\n'),
       );
 
-      const capitalizedSubcommand: string = capitalizeFirstLetter(subcommand);
+      // using nullish coalescing to protect the function from strings that are less than 2 characters long
+      const capitalizedSubcommand =
+        capitalizeFirstLetter(subcommand) ?? subcommand;
 
       const roleEmbed = new KiwiEmbedBuilder(interaction.user, {
         title: `Info ${capitalizedSubcommand}`,
@@ -212,7 +213,7 @@ export default new Command({
             value: sortedMemberNamesString,
           },
         ],
-      }) as APIEmbed;
+      });
 
       return interaction.editReply({ embeds: [roleEmbed] });
     } else if (subcommand === 'avatar') {
