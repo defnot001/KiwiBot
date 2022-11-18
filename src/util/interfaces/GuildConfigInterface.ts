@@ -6,6 +6,7 @@ interface GuildConfigInterface {
     todo: string;
     memberLog: string;
     modLog: string;
+    botLog: string;
   };
   roles: {
     members: string;
