@@ -1,4 +1,10 @@
-interface GuildConfigInterface {
+export interface IBotConfig {
+  token: string;
+  clientID: string;
+  guildID: string;
+}
+
+export interface IGuildConfig {
   channels: {
     invite: string;
     resources: string;
@@ -19,4 +25,8 @@ interface GuildConfigInterface {
   };
 }
 
-export default GuildConfigInterface;
+export interface IENV {
+  token: string | undefined;
+  clientID: string | undefined;
+  guildID: string | undefined;
+}

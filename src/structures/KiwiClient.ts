@@ -1,3 +1,7 @@
+import glob from 'glob';
+import botConfig from '../config/botConfig';
+import projectPaths from '../util/node/projectPaths';
+import { promisify } from 'util';
 import {
   ApplicationCommandDataResolvable,
   Client,
@@ -6,13 +10,9 @@ import {
   GatewayIntentBits,
   Partials,
 } from 'discord.js';
-import glob from 'glob';
-import { promisify } from 'util';
-import botConfig from '../config/botConfig';
-import projectPaths from '../util/node/projectPaths';
 import type { Event } from './Event';
 import type CommandType from '../util/types/CommandType';
-import type RegisterCommandOptionsInterface from '../util/interfaces/RegisterCommandOptionsInterface';
+import type RegisterCommandOptionsInterface from '../util/interfaces/RegisterCommandOptions';
 
 const globPromise = promisify(glob);
 
@@ -52,7 +52,7 @@ export class KiwiClient extends Client {
 
       guild.commands.set(commands);
 
-      console.log(`Registering commands to ${guild?.name}...`);
+      console.log(`Registering commands to ${guild.name}...`);
     } else {
       if (!this.application) {
         throw new Error(

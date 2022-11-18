@@ -1,7 +1,6 @@
+import EmbedColor from '../../config/embedColors';
 import { APIEmbed, EmbedBuilder, EmbedData } from 'discord.js';
 import type { User } from 'discord.js';
-import EmbedColor from '../../config/embedColors';
-
 export class KiwiEmbedBuilder extends EmbedBuilder {
   constructor(user: User, data?: EmbedData | APIEmbed) {
     super(data);

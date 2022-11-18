@@ -2,9 +2,9 @@
 // Make sure to uncomment the whole file.
 
 /*
-import type GuildConfigInterface from '../util/interfaces/GuildConfigInterface';
+import type { IGuildConfig } from '../util/interfaces/Config';
 
-const guildConfig: GuildConfigInterface = {
+const guildConfig: IGuildConfig = {
   channels: {
     invite: '',
     resources: '',
@@ -12,6 +12,7 @@ const guildConfig: GuildConfigInterface = {
     todo: '',
     memberLog: '',
     modLog: '',
+    botLog: '',
   },
   roles: {
     members: '',
@@ -25,5 +26,6 @@ const guildConfig: GuildConfigInterface = {
 } as const;
 
 export default guildConfig;
+
 
 */

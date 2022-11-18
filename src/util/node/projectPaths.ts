@@ -1,5 +1,4 @@
 import path from 'path';
-import { fileURLToPath } from 'url';
 
 const currentPath = path.dirname(__dirname);
 const sourcesPath = path.join(currentPath, '..');

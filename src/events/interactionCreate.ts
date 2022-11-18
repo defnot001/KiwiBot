@@ -4,7 +4,8 @@ import type {
 } from 'discord.js';
 import { client } from '..';
 import { Event } from '../structures/Event';
-import type ExtendedInteractionInterface from '../util/interfaces/ExtendedInteractionInterface';
+import { errorLog } from '../util/functions/loggers';
+import type ExtendedInteractionInterface from '../util/interfaces/ExtendedInteraction';
 
 export default new Event('interactionCreate', async (interaction) => {
   if (!interaction.isChatInputCommand()) return;
@@ -25,6 +26,15 @@ export default new Event('interactionCreate', async (interaction) => {
     });
   } catch (err) {
     console.error(err);
+
+    if (interaction.guild) {
+      errorLog({
+        client: interaction.client,
+        guild: interaction.guild,
+        type: 'error',
+        errorMessage: `There was an error trying to execute ${interaction.commandName}!`,
+      });
+    }
 
     interaction.reply({
       content: 'There was an error trying to execute this command',

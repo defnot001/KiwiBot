@@ -1,50 +1,34 @@
-import type { APIEmbed, GuildMember, TextChannel } from 'discord.js';
-import { EmbedBuilder, userMention, inlineCode, time } from 'discord.js';
+import { userMention, inlineCode, time } from 'discord.js';
 import { Event } from '../structures/Event';
-import { colorFromDuration } from '../util/functions/helpers';
-import guildConfig from '../config/guildConfig';
+import { getLogChannels } from '../util/functions/loggers';
+import { JoinLeaveEmbedBuilder } from '../structures/Embeds/JoinLeaveEmbedBuilder';
+import {
+  colorFromDuration,
+  getJoinedAtComponent,
+} from '../util/functions/helpers';
 
-export default new Event('guildMemberAdd', async (member: GuildMember) => {
+export default new Event('guildMemberAdd', async (member) => {
   console.log(`${member.user.tag} joined ${member.guild.name}.`);
 
-  const memberLogChannel = member.guild.channels.cache.get(
-    guildConfig.channels.memberLog,
-  );
+  const { memberLog } = getLogChannels(member.guild);
 
-  if (!memberLogChannel || !memberLogChannel.isTextBased()) {
-    return console.error('Cannot find the channel to post the join-embed in.');
-  }
-
-  const joinedAtComponent: string = member.joinedAt
-    ? `\nJoined at: ${time(member.joinedAt, 'f')} (${time(
-        member.joinedAt,
-        'R',
-      )})`
-    : '\u200b';
+  const joinedAt = getJoinedAtComponent(member);
 
   const accountAge: number =
     new Date().valueOf() - member.user.createdAt.valueOf();
 
   const embedColor: number = colorFromDuration(accountAge) || 3_092_790;
 
-  const joinEmbed = new EmbedBuilder({
-    author: {
-      name: member.user.tag,
-      icon_url: member.user.displayAvatarURL(),
-    },
+  const joinEmbed = new JoinLeaveEmbedBuilder(member, 'joined', {
     color: embedColor,
     description: `Username: ${userMention(member.user.id)}\n
-    User ID: ${inlineCode(member.user.id)}${joinedAtComponent}
+    User ID: ${inlineCode(member.user.id)}${joinedAt}
     \n
     Created at: ${time(member.user.createdAt, 'f')} (${time(
       member.user.createdAt,
       'R',
     )})`,
-    footer: {
-      text: 'User joined',
-    },
-    timestamp: Date.now(),
-  }) as APIEmbed;
+  });
 
-  memberLogChannel.send({ embeds: [joinEmbed] });
+  memberLog.send({ embeds: [joinEmbed] });
 });

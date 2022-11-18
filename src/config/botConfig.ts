@@ -1,22 +1,21 @@
 import dotenv from 'dotenv';
-import type ENVInterface from '../util/interfaces/ENVinterface';
-import type BotConfigInterface from '../util/interfaces/BotConfigInterface';
+import type { IBotConfig, IENV } from '../util/interfaces/Config';
 
 dotenv.config();
 
-const env: ENVInterface = {
+const env: IENV = {
   token: process.env.BOT_TOKEN,
   clientID: process.env.CLIENT_ID,
   guildID: process.env.GUILD_ID,
 };
 
-const checkConfig = (config: ENVInterface) => {
+const checkConfig = (config: IENV) => {
   for (const [key, value] of Object.values(env)) {
     if (!value) {
       throw new Error(`Missing key ${key} in .env`);
     }
   }
-  return config as BotConfigInterface;
+  return config as IBotConfig;
 };
 
 const botConfig = checkConfig(env);
