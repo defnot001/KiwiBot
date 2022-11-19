@@ -10,9 +10,3 @@ export function isTextChannel(
 ): channel is TextChannel {
   return channel instanceof TextChannel;
 }
-
-export async function getMemberFromPartial(
-  maybeMember: GuildMember | PartialGuildMember,
-): Promise<GuildMember> {
-  return maybeMember.partial ? await maybeMember.fetch() : maybeMember;
-}
