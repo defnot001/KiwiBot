@@ -1,8 +1,8 @@
-import type { GuildMember } from 'discord.js';
+import type { GuildMember, User } from 'discord.js';
 import type { ModerationAction } from '../types/moderationAction';
 
 export interface IModerationEmbedOptions {
-  target: GuildMember;
+  target: User;
   executor: GuildMember;
   action: ModerationAction;
   reason?: string | null;

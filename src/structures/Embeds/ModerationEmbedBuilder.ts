@@ -13,7 +13,7 @@ export class ModerationEmbedBuilder extends EmbedBuilder {
     const { target, executor, action, reason, expiration } = options;
 
     const descriptionObject: IModerationDescription = {
-      member: `**Member**: ${target.user.tag} (${inlineCode(target.user.id)})`,
+      member: `**Member**: ${target.tag} (${inlineCode(target.id)})`,
       action: `**Action**: ${action}`,
     };
 
@@ -60,7 +60,7 @@ export class ModerationEmbedBuilder extends EmbedBuilder {
     this.setDescription(description);
 
     this.setFooter({
-      text: 'Moderation Logger',
+      text: 'Moderation Log',
     });
 
     this.setTimestamp(Date.now());
