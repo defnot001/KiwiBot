@@ -12,6 +12,7 @@ export class JoinLeaveEmbedBuilder extends EmbedBuilder {
 
     this.setAuthor({
       name: member.user.tag,
+      iconURL: member.user.displayAvatarURL(),
     });
 
     this.setColor(EmbedColor.none);
