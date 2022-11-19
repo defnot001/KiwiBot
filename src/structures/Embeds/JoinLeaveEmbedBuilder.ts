@@ -1,10 +1,10 @@
 import EmbedColor from '../../config/embedColors';
-import { EmbedBuilder } from 'discord.js';
+import { EmbedBuilder, PartialGuildMember } from 'discord.js';
 import type { GuildMember, APIEmbed, EmbedData } from 'discord.js';
 
 export class JoinLeaveEmbedBuilder extends EmbedBuilder {
   constructor(
-    member: GuildMember,
+    member: GuildMember | PartialGuildMember,
     action: 'joined' | 'left',
     data?: EmbedData | APIEmbed,
   ) {
