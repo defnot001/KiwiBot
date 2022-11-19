@@ -38,7 +38,9 @@ export default new Event('guildMemberAdd', async (member) => {
       client: member.client,
       guild: member.guild,
       type: 'error',
-      errorMessage: `'GuildMemberAdd' Event triggered but the embed could not be sent.`,
+      errorMessage: `${inlineCode(
+        'GuildMemberAdd',
+      )} Event triggered but the embed could not be sent.`,
     });
   }
 });
