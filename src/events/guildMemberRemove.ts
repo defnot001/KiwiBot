@@ -6,7 +6,6 @@ import { getLogChannels } from '../util/functions/loggers';
 import { errorLog } from '../util/functions/loggers';
 import { ModerationEmbedBuilder } from '../structures/Embeds/ModerationEmbedBuilder';
 import { ModerationAction } from '../util/types/moderationAction';
-import { getMemberFromPartial } from '../util/functions/typeChecks';
 
 export default new Event('guildMemberRemove', async (member) => {
   try {
