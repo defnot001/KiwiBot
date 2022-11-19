@@ -39,12 +39,6 @@ export class ModerationEmbedBuilder extends EmbedBuilder {
       case ModerationAction.unban:
         color = EmbedColor.none;
         break;
-      case ModerationAction.timeout:
-        color = EmbedColor.yellow;
-        break;
-      case ModerationAction.timeoutRemove:
-        color = EmbedColor.none;
-        break;
 
       default:
         color = EmbedColor.none;
